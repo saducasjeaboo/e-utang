@@ -1,0 +1,100 @@
+:root {
+  --bg-light: #f8f9fa;
+  --text-light: #212529;
+  --bg-dark: #121212;
+  --text-dark: #f1f1f1;
+  --accent: #3b82f6;
+  --danger: #ef4444;
+  --success: #10b981;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-light);
+  color: var(--text-light);
+  transition: background 0.3s, color 0.3s;
+}
+body.dark {
+  background-color: var(--bg-dark);
+  color: var(--text-dark);
+}
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  background: rgba(255,255,255,0.1);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+h1,h2,h3 { text-align: center; }
+.subtitle {
+  text-align: center;
+  margin-top: -10px;
+  font-weight: bold;
+  color: var(--accent);
+}
+.hidden { display: none; }
+input, button {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+}
+button {
+  cursor: pointer;
+  transition: 0.2s;
+  border: none;
+  color: white;
+}
+button:hover { opacity: 0.85; }
+.btn-accent { background: var(--accent); }
+.btn-success { background: var(--success); }
+.btn-danger { background: var(--danger); }
+.theme-toggle {
+  background: var(--accent);
+  font-size: 14px;
+  padding: 5px 8px;
+  float: right;
+  color: white;
+  border-radius: 6px;
+}
+.list { margin-top: 20px; }
+.debtor {
+  background: rgba(0,0,0,0.05);
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 8px;
+}
+.debtor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.debtor-info {
+  font-size: 12px;
+  opacity: 0.8;
+}
+.status-paid { color: #0f0; font-weight: bold; }
+.status-unpaid { color: #f33; font-weight: bold; }
+.items { margin-top: 20px; }
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px;
+  background: rgba(0,0,0,0.05);
+  margin: 5px 0;
+  border-radius: 6px;
+}
+.small-btn {
+  padding: 4px 8px;
+  font-size: 12px;
+  margin-left: 5px;
+  border-radius: 4px;
+}
+.paid-item {
+  text-decoration: line-through;
+  opacity: 0.6;
+}

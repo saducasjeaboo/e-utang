@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Utang System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="container" id="loginPage">
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  <h1>E-Utang System</h1>
+  <p class="subtitle">AJEJE'S SARI-SARI STORE</p>
+  <p>Enter admin password:</p>
+  <input type="password" id="adminPass" placeholder="Password" />
+  <button class="btn-accent" onclick="login()">Login</button>
+  <p style="margin-top:20px;font-size:14px;text-align:right;">
+    Made by <a href="https://saducasjeaboo.github.io/my-web/" target="_blank">Jeabo Ray Saducas</a>
+  </p>
+</div>
+
+<div class="container hidden" id="mainPage">
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  <h1>Debtors List</h1>
+  <input type="text" id="debtorName" placeholder="Enter debtor name" />
+  <button class="btn-success" onclick="addDebtor()">Add</button>
+  <div class="list" id="debtorList"></div>
+</div>
+
+<div class="container hidden" id="detailsPage">
+  <button class="small-btn btn-accent" onclick="goBack()">← Back</button>
+  <h2 id="debtorTitle"></h2>
+  <input type="text" id="itemName" placeholder="Item name" />
+  <input type="number" id="itemPrice" placeholder="Price" />
+  <button class="btn-success" onclick="addItem()">Add Item</button>
+  <div class="items" id="itemList"></div>
+  <h3>Total: ₱<span id="totalDebt">0</span></h3>
+  <button class="btn-success" onclick="markAllPaid()">Paid All</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
