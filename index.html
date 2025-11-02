@@ -4,93 +4,41 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>E-Utang System</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-    .header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-    .header h1 {
-      margin-bottom: 0;
-    }
-    .header .subtitle {
-      margin-top: 0;
-      font-size: 18px;
-      color: #666;
-    }
-    .container {
-      max-width: 400px;
-      margin: 40px auto;
-      padding: 20px;
-      border: 1px solid #ddd;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    @media only screen and (max-width: 480px) {
-      .container {
-        margin: 20px auto;
-        padding: 10px;
-      }
-    }
-    .theme-toggle {
-      float: right;
-      cursor: pointer;
-    }
-    .btn-accent {
-      background-color: #4CAF50;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .btn-success {
-      background-color: #4CAF50;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    .hidden {
-      display: none;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container" id="loginPage">
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-    <div class="header">
-      <h1>E-Utang System</h1>
-      <p class="subtitle">AJEJE'S SARI-SARI STORE</p>
-    </div>
-    <p>Enter admin password:</p>
-    <input type="password" id="adminPass" placeholder="Password" />
-    <button class="btn-accent" onclick="login()">Login</button>
-    <p style="margin-top:20px;font-size:14px;text-align:right;"> Made by <a href="https:                                                                             
-  </div>
-  <div class="container hidden" id="mainPage">
-    <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-    <h1>Debtors List</h1>
-    <input type="text" id="debtorName" placeholder="Enter debtor name" />
-    <button class="btn-success" onclick="addDebtor()">Add</button>
-    <div class="list" id="debtorList"></div>
-  </div>
-  <div class="container hidden" id="detailsPage">
-    <button class="small-btn btn-accent" onclick="goBack()">← Back</button>
-    <h2 id="debtorTitle"></h2>
-    <input type="text" id="itemName" placeholder="Item name" />
-    <input type="number" id="itemPrice" placeholder="Price" />
-    <button class="btn-success" onclick="addItem()">Add Item</button>
-    <div class="items" id="itemList"></div>
-    <h3>Total: ₱<span id="totalDebt">0</span></h3>
-    <button class="btn-success" onclick="markAllPaid()">Paid All</button>
-  </div>
-  <script src="script.js"></script>
-</body>
-</html>
 
+<div class="container" id="loginPage">
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  <h1>E-Utang System</h1>
+  <p class="subtitle">AJEJE'S SARI-SARI STORE</p>
+  <p>Enter admin password:</p>
+  <input type="password" id="adminPass" placeholder="Password" />
+  <button class="btn-accent" onclick="login()">Login</button>
+  <p style="margin-top:20px;font-size:14px;text-align:right;">
+    Made by <a href="https://saducasjeaboo.github.io/my-web/" target="_blank">Jeabo Ray Saducas</a>
+  </p>
+</div>
+
+<div class="container hidden" id="mainPage">
+  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+  <h1>Debtors List</h1>
+  <input type="text" id="debtorName" placeholder="Enter debtor name" />
+  <button class="btn-success" onclick="addDebtor()">Add</button>
+  <div class="list" id="debtorList"></div>
+</div>
+
+<div class="container hidden" id="detailsPage">
+  <button class="small-btn btn-accent" onclick="goBack()">← Back</button>
+  <h2 id="debtorTitle"></h2>
+  <input type="text" id="itemName" placeholder="Item name" />
+  <input type="number" id="itemPrice" placeholder="Price" />
+  <button class="btn-success" onclick="addItem()">Add Item</button>
+  <div class="items" id="itemList"></div>
+  <h3>Total: ₱<span id="totalDebt">0</span></h3>
+  <button class="btn-success" onclick="markAllPaid()">Paid All</button>
+</div>
+
+<script src="script.js"></script>
+</body>
+    </html>
