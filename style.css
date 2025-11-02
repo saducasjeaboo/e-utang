@@ -28,9 +28,9 @@ body.dark {
   border-radius: 12px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.2);
 }
-h1,h2,h3 { text-align: center; }
+h1,h2,h3 { text-align: left; }
 .subtitle {
-  text-align: center;
+  text-align: left;
   margin-top: -10px;
   font-weight: bold;
   color: var(--accent);
@@ -98,4 +98,5 @@ button:hover { opacity: 0.85; }
   text-decoration: line-through;
   opacity: 0.6;
 }
+
 
