@@ -1,51 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#3b82f6">
+  <meta name="description" content="E-Utang System - Sari-Sari Store Debt Management">
   <title>E-Utang System</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="icon-192.png">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="container" id="loginPage">
-  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-  <h1>E-Utang System</h1>
-  <p class="subtitle">AJEJE'S SARI-SARI STORE<br><br><br><br><br></p>
-  <p>Enter admin password:</p>
-  <input type="password" id="adminPass" placeholder="Password" />
-  <button class="btn-accent" onclick="login()">Login</button>
-  <p><br><br><br></p><br><br><br></p><br><br><br></p><br><br><br></p>
-  <p style="margin-top:20px;font-size:9px;text-align:right;">
-    Made by <a href="https://saducasjeaboo.github.io/my-web/" target="_blank">Jeabo Ray Saducas</a>
-  </p>
-</div>
+  <!-- Login Page -->
+  <div class="page active" id="loginPage">
+    <div class="login-container">
+      <h1 class="login-title">E-Utang System</h1>
+      <p class="login-subtitle" id="storeNameDisplay">AJEJE'S SARI-SARI STORE</p>
+      <div class="login-form">
+        <input type="password" id="adminPass" placeholder="Enter Password" class="input-field">
+        <button class="btn btn-primary" onclick="login()">Login</button>
+        <p class="error-message" id="loginError"></p>
+      </div>
+      <footer class="login-footer">
+        Made by <a href="https://saducasjeaboo.github.io/my-web/" target="_blank" class="footer-link">Jeabo Ray Saducas</a>
+      </footer>
+    </div>
+  </div>
 
-<div class="container hidden" id="mainPage">
-  <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
-  <h1>Debtors List</h1>
-  <input type="text" id="debtorName" placeholder="Enter debtor name" />
-  <button class="btn-success" onclick="addDebtor()">Add</button>
-  <div class="list" id="debtorList"></div>
-</div>
+  <!-- Main App Container -->
+  <div class="app-container" id="appContainer" style="display: none;">
+    
+    <!-- Top Bar -->
+    <div class="top-bar">
+      <div class="top-bar-left">
+        <button class="icon-btn" id="themeToggle" onclick="toggleTheme()" title="Toggle Theme">
+          <span id="themeIcon">🌙</span>
+        </button>
+        <button class="icon-btn" id="searchToggle" onclick="toggleSearch()" title="Search">
+          <span>🔍</span>
+        </button>
+      </div>
+      <h2 class="page-title" id="pageTitle">Debtors</h2>
+    </div>
 
-<div class="container hidden" id="detailsPage">
-  <button class="small-btn btn-accent" onclick="goBack()">← Back</button>
-  <h2 id="debtorTitle"></h2>
-  <input type="text" id="itemName" placeholder="Item name" />
-  <input type="number" id="itemPrice" placeholder="Price" />
-  <button class="btn-success" onclick="addItem()">Add Item</button>
-  <div class="items" id="itemList"></div>
-  <h3>Total: ₱<span id="totalDebt">0</span></h3>
-  <button class="btn-success" onclick="markAllPaid()">Paid All</button>
-</div>
+    <!-- Search Bar -->
+    <div class="search-container" id="searchContainer" style="display: none;">
+      <input type="text" id="searchInput" placeholder="Search debtors by name..." class="search-input" oninput="filterDebtors()">
+      <button class="btn-close" onclick="toggleSearch()">✕</button>
+    </div>
 
-<script src="script.js"></script>
+    <!-- Debtors Page -->
+    <div class="page-content active" id="debtorsPage">
+      <div class="add-section">
+        <input type="text" id="debtorName" placeholder="Enter debtor name" class="input-field">
+        <button class="btn btn-primary" onclick="addDebtor()">Add</button>
+      </div>
+      <div class="debtors-list" id="debtorsList"></div>
+    </div>
+
+    <!-- Debtor Details Page -->
+    <div class="page-content" id="detailsPage">
+      <button class="btn btn-back" onclick="goBackToDebtors()">← Back</button>
+      <h2 id="debtorDetailName" class="detail-name"></h2>
+      <h3 class="total-amount">Total: ₱<span id="totalAmount">0.00</span></h3>
+      
+      <div class="add-section">
+        <input type="text" id="itemName" placeholder="Item name" class="input-field">
+        <input type="number" id="itemPrice" placeholder="Price" class="input-field" step="0.01">
+        <button class="btn btn-primary" onclick="addItem()">Add Item</button>
+      </div>
+
+      <div class="items-list" id="itemsList"></div>
+
+      <div class="action-buttons">
+        <button class="btn btn-success" onclick="markAllPaid()">Paid All</button>
+      </div>
+    </div>
+
+    <!-- Calculator Page -->
+    <div class="page-content" id="calculatorPage">
+      <div class="calculator">
+        <div class="calculator-display" id="calcDisplay">0</div>
+        <div class="calculator-buttons">
+          <button class="calc-btn calc-clear" onclick="calcClear()">C</button>
+          <button class="calc-btn calc-delete" onclick="calcDelete()">DEL</button>
+          <button class="calc-btn calc-operator" onclick="calcInput('/')">÷</button>
+          <button class="calc-btn calc-operator" onclick="calcInput('*')">×</button>
+          
+          <button class="calc-btn" onclick="calcInput('7')">7</button>
+          <button class="calc-btn" onclick="calcInput('8')">8</button>
+          <button class="calc-btn" onclick="calcInput('9')">9</button>
+          <button class="calc-btn calc-operator" onclick="calcInput('-')">−</button>
+          
+          <button class="calc-btn" onclick="calcInput('4')">4</button>
+          <button class="calc-btn" onclick="calcInput('5')">5</button>
+          <button class="calc-btn" onclick="calcInput('6')">6</button>
+          <button class="calc-btn calc-operator" onclick="calcInput('+')">+</button>
+          
+          <button class="calc-btn" onclick="calcInput('1')">1</button>
+          <button class="calc-btn" onclick="calcInput('2')">2</button>
+          <button class="calc-btn" onclick="calcInput('3')">3</button>
+          <button class="calc-btn calc-equals" onclick="calcEquals()" style="grid-row: span 2;">=</button>
+          
+          <button class="calc-btn" onclick="calcInput('0')" style="grid-column: span 2;">0</button>
+          <button class="calc-btn" onclick="calcInput('.')">.</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Settings Page -->
+    <div class="page-content" id="settingsPage">
+      <div class="settings-container">
+        <div class="store-info">
+          <div class="store-logo">🏪</div>
+          <input type="text" id="storeNameInput" class="store-name-input" placeholder="Store Name">
+          <button class="btn btn-primary btn-small" onclick="updateStoreName()">Update Name</button>
+        </div>
+
+        <div class="settings-options">
+          <button class="settings-btn" onclick="openTrash()">
+            <span class="settings-icon">🗑️</span>
+            <span>Trash</span>
+          </button>
+          
+          <button class="settings-btn" onclick="toggleTheme()">
+            <span class="settings-icon" id="themeIconSettings">🌙</span>
+            <span>Theme Switcher</span>
+          </button>
+          
+          <button class="settings-btn" onclick="openDeveloper()">
+            <span class="settings-icon">👨‍💻</span>
+            <span>Developer</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trash Page -->
+    <div class="page-content" id="trashPage">
+      <button class="btn btn-back" onclick="goBackToSettings()">← Back</button>
+      <h2>Deleted Debtors</h2>
+      <div class="debtors-list" id="trashList"></div>
+      <p class="empty-message" id="emptyTrashMessage" style="display: none;">No deleted debtors</p>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+      <button class="nav-btn active" onclick="showPage('debtors')" data-page="debtors">
+        <span class="nav-icon">👥</span>
+        <span class="nav-label">Debtors</span>
+      </button>
+      <button class="nav-btn" onclick="showPage('calculator')" data-page="calculator">
+        <span class="nav-icon">🔢</span>
+        <span class="nav-label">Calculator</span>
+      </button>
+      <button class="nav-btn" onclick="showPage('settings')" data-page="settings">
+        <span class="nav-icon">⚙️</span>
+        <span class="nav-label">Settings</span>
+      </button>
+    </nav>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, set, get, remove, onValue, push } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDSLHIJUjWLACdiaBdIHEjAxc0zZSP16DI",
+      authDomain: "e-utang-92406.firebaseapp.com",
+      databaseURL: "https://e-utang-92406-default-rtdb.firebaseio.com",
+      projectId: "e-utang-92406",
+      storageBucket: "e-utang-92406.firebasestorage.app",
+      messagingSenderId: "296320812361",
+      appId: "1:296320812361:web:955c132c8be08d382ec698",
+      measurementId: "G-QW8LSPGCDH"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+
+    window.db = database;
+    window.dbRef = ref;
+    window.dbSet = set;
+    window.dbGet = get;
+    window.dbRemove = remove;
+    window.dbOnValue = onValue;
+    window.dbPush = push;
+
+    console.log("Firebase initialized successfully");
+  </script>
+
+  <script src="script.js"></script>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then(reg => console.log('Service Worker registered'))
+          .catch(err => console.log('Service Worker registration failed:', err));
+      });
+    }
+  </script>
+
 </body>
-    </html>
-
-
-
-
-
-
+</html>
